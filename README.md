@@ -3,13 +3,17 @@
 > 本地环境：CenOS 7 + HDFS（192.168.221.89 dfs-node01、192.168.221.88 dfs-node02）
   
 ## 数据分析
-**数据源**:gps.scv
+**数据源**：gps.scv
 
 **数据字段描述**：
-    VehicleId:出租车标识符
-    Time:数据收集时间
-    Longitude:经度
-    Latitude:纬度
-    Speed:速度
-    Direction:方位，与正北方向夹角
-    PassengerState:载客情况，1为载客，0为空车
+    VehicleId：出租车标识符
+    Time：数据收集时间
+    Longitude：经度
+    Latitude：纬度
+    Speed：速度
+    Direction：方位，与正北方向夹角
+    PassengerState：载客情况，1为载客，0为空车
+    
+## 运行效果
+
+
