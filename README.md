@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://github.com/2020chen/JAVA-dataAnalysis" target="_blank">小型数据分析项目</a></h>
 
-> 本地环境：Centos 7 + HDFS（192.168.221.89 dfs-node01、192.168.221.88 dfs-node02）
+> 本地环境：CenOS 7 + HDFS（192.168.221.89 dfs-node01、192.168.221.88 dfs-node02）
   
 ## 数据分析
 **数据源**:gps.scv
