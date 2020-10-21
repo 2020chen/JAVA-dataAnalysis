@@ -8,7 +8,7 @@
 2. IDEA创建
 - 新建项目，选择Spring initalizr，填写项目名称，进行创建
 3. 编写http接口
-- 新建controller包，方便识别代码文件
+- 新建controller包在主程序的同级目录，编写以下代码文件进行编译
 ```java
 @RestController
 public class HelloController{
@@ -18,3 +18,7 @@ public class HelloController{
   }  
 }
 ```
+- 进入tomcat接口地址//localhost:8080/，实现效果
+## 分析运行原理
+1. pom.xml
+2. 主启动类
