@@ -21,4 +21,9 @@ public class HelloController{
 - 进入tomcat接口地址//localhost:8080/，实现效果
 ## 分析运行原理
 1. pom.xml
+- 父依赖
+- 启动器   
+  场景启动器 springboot-boot-starter-xxx  
+  web模块运行所需的组件 spring-boot-start-web
 2. 主启动类
+![run](https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1vFQMnaRIJSmeZ58T2eZicjafiawQLp9u8wc4ic1Mjy6OyfibzfjVofeL5pnS1NSFKVjlIg6neI9ySg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
