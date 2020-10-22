@@ -40,7 +40,7 @@ protected List<String> getCandidateConfigrations(AnnotationMetadata metadata,Ann
 4. 把所有需要导入的组件，以类名的方式返回，这些组件就会被添加到容器；
 5. 容器中也会存在非常多的xxxAutoConfiguration的文件（@Bean），就是这些类给容器中导入了这个场景需要的所有组件，并自动配置，@Configuration,JavaConfig!
 ![run](https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7L1vFQMnaRIJSmeZ58T2eZicjafiawQLp9u8wc4ic1Mjy6OyfibzfjVofeL5pnS1NSFKVjlIg6neI9ySg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-##Restful api原理
+## Restful api原理
 1. Lombok 优化代码利器
 2. `@RestController` 
 3. `@RequestParam`以及`@Pathvairable`
