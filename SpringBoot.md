@@ -122,3 +122,160 @@ public class BookController {
 4. `@PathVariable` :取url地址中的参数。`@RequestParam ` url的查询参数值。
 5. `@RequestBody`:可以**将 *HttpRequest* body 中的 JSON 类型数据反序列化为合适的 Java 类型。**
 6. `ResponseEntity`: **表示整个HTTP Response：状态码，标头和正文内容**。我们可以使用它来自定义HTTP Response 的内容。
+## yaml语法学习
+1. 配置文件
+- application.properties
+-- key=value
+- application.yml
+-- key:空格 value
+2. yaml概述
+传统xml配置：
+```xml
+<server>
+	<port>8081<port>
+</server>
+```
+yaml配置：
+```yml
+server:
+  port:8080
+```
+3. yaml基础语法
+- 空格不能省略
+- 以缩进来控制层级关系
+- 属性和值的大小写敏感  
+**字面量：普通的值[ 数字，布尔值，字符串 ]**  
+字符串默认不用加上双引号或单引号
+- 双引号不会转义特殊字符，单引号会转义变成普通字符输出  
+**对象、Map（键值对）**  
+注意缩进，行内写法用大括号{}  
+**数组（List、set）**  
+用-值表示数组中的一个元素，行内写法用中括号[]
+4. 注入配置文件
+> yaml注入配置文件
+- 在springboot项目中的resources目录下新建文件application.yml
+- 编写实体类Dog
+```java
+package com.xxx.springboot.pojo
+
+@Component //注册bean到容器中
+public class Dog{
+	private String name;
+	private Integer age;
+	//有参无参构造、get、set方法、toString（）方法
+}
+```
+- 原来是用'@Value'给bean注入属性值,测试Dog类
+```java
+@Component //注册bean
+public class Dog{
+	@Value("阿黄")
+	private String name;
+	@Value("18")
+	private Integer age;
+}
+```
+- SpringBoot的测试类下注入dog输出一下
+```java
+@SpringBootTest
+class DemoApplicationTests{
+	@Autowired //将狗狗自动注入进来
+	Dog dog;
+	@Test
+	public void contextLoads(){
+		System.out.println(dog);//打印dog对象
+	}
+}
+```
+- 编写复杂一点的实体类：Person类
+```java
+@Component //注册bean到容器中
+public class Person{
+	private String name;
+	private Integer age;
+	private Boolean happy;
+	private Date birth;
+	private Map<String.Object> maps;
+	private List<Object> lists;
+	private Dog dog;
+	//有参无参构造、get、set方法、toString（）方法
+}
+```
+- 使用yaml配置的方式进行注入
+```yml
+person:
+  name:qinjiang
+  age:3
+  happy:false
+  birth:2000/01/01
+  maps:{k1:v1,k2:v2}
+  lists:
+   - code
+   - girl
+   - music
+  dog:
+   name:wang
+   age:1
+```
+- 已经将Person这个对象的所有值都写好了，注入到Person类中
+```java
+/*
+@ConfigurationProperties作用：
+将配置文件中配置的每一个属性的值，映射到这个组件中；
+告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定
+参数 prefix = “person” : 将配置文件中的person下面的所有属性一一对应
+*/
+@Component //注册bean
+@ConfigurationProperties(prefix = "person")
+public class Person {
+    private String name;
+    private Integer age;
+    private Boolean happy;
+    private Date birth;
+    private Map<String,Object> maps;
+    private List<Object> lists;
+    private Dog dog;
+}
+```
+- 当提示SpringBoot配置注解处理器没找到时，导入依赖
+```xml
+<!-- 导入配置文件处理器，配置文件进行绑定就会有提示，需要重启 -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-configuration-processor</artifactId>
+  <optional>true</optional>
+</dependency>
+```
+- 确认以上配置都完成之后，测试类测试一下：
+```java
+@SpringBootTest
+class DemoApplicationTests{
+	@Autowired
+	Person person;//将person自动注入进来
+	@Test
+	public void contextLoads(){
+		System.out.println(person);//打印person信息
+	}
+}
+```
+> 配置文件占位符
+配置文件编写占位符生成随机数
+```xml
+person:
+    name: qinjiang${random.uuid} # 随机uuid
+    age: ${random.int}  # 随机int
+    happy: false
+    birth: 2000/01/01
+    maps: {k1: v1,k2: v2}
+    lists:
+      - code
+      - girl
+      - music
+    dog:
+      name: ${person.hello:other}_旺财
+      age: 1
+```
+## 结论
+配置yml和配置properties都可以获取到值，强烈推荐yml；
+在某个业务中，只需要获取到配置文件中的某个值，可以使用`@value`;
+专门编写JavaBean来和配置文件一一映射，直接`@ConfigurationProperties`
