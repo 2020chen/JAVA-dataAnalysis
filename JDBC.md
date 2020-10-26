@@ -553,6 +553,7 @@ CallableStatement 对象为所有的 DBMS 提供了一种以标准形式调用�
 | IN  | 它的值是在创建SQL语句时未知的参数，将 `IN` 参数传给 `CallableStatement` 对象是通过 `setXXX()` 方法完成的 |
 | OUT  | 其他由它返回的SQL语句提供的参数，从`OUT`参数的`getXXX()`方法检索值 |
 | INOUT  | 同时提供输入和输出值的参数，绑定的 `setXXX()` 方法的变量，并使用 `getXXX()` 方法检索值 |  
+
 在 JDBC 中调用存储过程的语法如下所示。注意，方括号表示其间的内容是可选项；方括号本身并不是语法的组成部份。
 ```java
 {call 存储过程名 [(?, ?, ...)]}
@@ -609,6 +610,7 @@ Java 语言中的数据类型和 SQL 语言的数据类型有一定的差别，�
 | ARRAY | java.sql.Array | setARRAY | updateARRAY | getARRAY |
 | REF | java.sql.Ref | setRef | updateRef | getRef |
 | STRUCT | java.sql.Struct | setStruct | updateStruct | getStruct |  
+
 `java.sql.Date`，以及 `java.sql.Time` 和 `java.sql.Timestamp` 类映射分别到 `SQL DATE`、`SQL TIME` 和 `SQL TIMESTAMP` 数据类型：
 
 在project目录下新建一个类Test.java
@@ -757,6 +759,89 @@ public class JdbcTest {
    }
 }
 ```
+## JDBC处理
+### JDBC异常处理
+JDBC 的异常处理非常类似于 `Java Exception` 处理。JDBC 最常见的异常处理的是 `java.sql.SQLException`，所以今天我们就来学习 `SQLException` 方法。
+| 方法 | 描述 |
+|  ----  | ----  |
+| getErrorCode() | 获取此 `SQLException` 对象的特定于供应商的异常代码 |
+| getNextException() | 通过 `setNextException(SQLException ex)` 获取链接到此 `SQLException` 对象的异常 |
+| getSQLState() | 获取此 `SQLException` 对象的 `SQLState`。对于 JDBC 驱动程序的错误，没有有用的信息从该方法返回。对于一个数据库错误，则返回五位 `XOPEN SQLSTATE` 代码。这种方法可以返回 null |
+| iterator() | 返回在链接的`SQLExceptions` 上进行迭代的迭代器 |
+| setNextException(SQLException ex) | 将 `SQLException` 对象添加到链接的末尾 |  
+
+通过利用从 Exception 对象捕获异常的信息，适当地继续运行程序。
+### JDBC批量处理
+批处理允许将相关的 `SQL` 语句组合成一个批处理和一个调用数据库提交。实质上和JDBC事务是一致的。
+
+当一次发送多个 SQL 语句到数据库，可以减少通信开销的数额，从而提高了性能。不过 JDBC 驱动程序不需要支持此功能。应该使用 DatabaseMetaData.supportsBatchUpdates() 方法来确定目标数据库支持批量更新处理。如果你的 JDBC 驱动程序支持此功能的方法返回 true。
+
+接下来我们来看看如何进行批处理操作：
+
+- 使用 `createStatement()` 方法创建一个 `Statement` 对象
+- 设置使用自动提交为 false
+- 添加任意多个 SQL 语句到批量处理，使用 `addBatch()` 方法
+- 使用 `executeBatch()` 方法，将返回一个整数数组，数组中的每个元素代表了各自的更新语句的更新计数
+- 最后，提交使用 `commit()` 方法的所有更改
+我们来看看示例：
+```java
+// 创建 statement 对象
+Statement stmt = conn.createStatement();
+
+// 关闭自动提交
+conn.setAutoCommit(false);
+
+// 创建 SQL 语句
+String SQL = "INSERT INTO Students (id, name, age) VALUES(6,'Mike', 21)";
+// 将 SQL 语句添加到批处理中
+stmt.addBatch(SQL);
+
+// 创建更多的 SQL 语句
+String SQL = "INSERT INTO Students (id, name, age) VALUES(7, 'Angle', 23)";
+// 将 SQL 语句添加到 批处理中
+stmt.addBatch(SQL);
+
+// 创建整数数组记录更新情况
+int[] count = stmt.executeBatch();
+
+//提交更改
+conn.commit();
+```
+当然我们也可以使用 `prepareStatement` 对象进行批处理操作，SQL 语句依然可以使用占位符，示例如下：
+```java
+// 创建 SQL 语句
+String SQL = "INSERT INTO Employees (id, name, age) VALUES(?, ?, ?)";
+
+// 创建 PrepareStatement 对象
+PreparedStatemen pstmt = conn.prepareStatement(SQL);
+
+//关闭自动连接
+conn.setAutoCommit(false);
+
+// 绑定参数
+pstmt.setInt( 1, 8 );
+pstmt.setString( 2, "Cindy" );
+pstmt.setInt( 3, 17 );
+
+// 添入批处理
+pstmt.addBatch();
+
+// 绑定参数
+pstmt.setInt( 1, 9 );
+pstmt.setString( 2, "Jeff" );
+pstmt.setInt( 3, 22 );
+
+// 添入批处理
+pstmt.addBatch();
+
+//创建数组记录更改
+int[] count = pstmt.executeBatch();
+
+//提交更改
+conn.commit();
+```
+
+
 
 
 
