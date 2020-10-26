@@ -1,9 +1,11 @@
 ## 目录
+<!-- TOC -->
 - [JDBC简介](#JDBC简介)
 - [JDBC SQL 语法](#JDBC SQL 语法)
 - [JDBC 环境设置](#JDBC 环境设置)
 - [创建 JDBC 应用程序](#创建 JDBC 应用程序)
 - [JDBC基础](#JDBC基础)
+<!-- /TOC -->
 ## JDBC 简介
 JDBC 的全称是 Java Database Connectivity，叫做 Java 数据库连接。它包括了一组与数据库交互的 api，还有与数据库进行通信的驱动程序。  
 我们要写涉及到数据库的程序，是通过 C 语言或者 C++ 语言直接访问数据库的接口，如下图所示。
