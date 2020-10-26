@@ -114,8 +114,8 @@ SQL> DELETE FROM Students WHERE id=1;
 ```sql
 sudo service mysql start
 ```
-2. 连接与断开数据库
-连接数据库（实验楼中密码环境为空）：
+2. 连接与断开数据库  
+连接数据库（本地密码环境为空）：
 ```sql
 mysql -u root
 ```
@@ -301,8 +301,8 @@ MySQL 的 Connector/Java 的驱动程序是一个类型 4 驱动程序。因为�
 - 创建连接对象：最后，代码调用 DriverManager 对象的 getConnection() 方法来建立实际的数据库连接。
 
 接下来我们便详细讲解这四步。  
-3.1. 导入 JDBC 驱动
-3.2. 注册 JDBC 驱动程序
+3.1 导入 JDBC 驱动  
+3.2 注册 JDBC 驱动程序  
 我们在使用驱动程序之前，必须注册你的驱动程序。注册驱动程序的本质就是将我们将要使用的数据库的驱动类文件动态的加载到内存中，然后才能进行数据库。比如我们使用的 Mysql 数据库。我们可以通过以下两种方式来注册我们的驱动程序。
 
 1、方法 1——Class.forName()：
@@ -324,7 +324,7 @@ catch(ClassNotFoundException ex) {
    Driver driver = new com.mysql.jdbc.Driver();
    DriverManager.registerDriver(driver);
 ```
-3.3 指定数据库连接 URL
+3.3 指定数据库连接 URL  
 当加载了驱动程序，便可以使用 DriverManager.getConnection() 方法连接到数据库了。
 
 这里给出 DriverManager.getConnection() 三个重载方法：
