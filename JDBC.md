@@ -130,8 +130,8 @@ mysql> exit
 ```xml
 wget https://labfile.oss.aliyuncs.com/courses/110/mysql-connector-java-5.1.47.jar
 ```
-有了驱动就可以与数据库打开一个通信通道
-2. 打开连接：需要使用 'DriverManager.getConnection() '方法创建一个`Connection`对象，它代表与数据库的物理连接
+有了驱动就可以与数据库打开一个通信通道  
+2. 打开连接：需要使用 `DriverManager.getConnection()`方法创建一个`Connection`对象，它代表与数据库的物理连接
 
 3. 执行查询：需要使用类型声明的对象建立并提交一个 SQL 语句到数据库
 
@@ -249,17 +249,17 @@ java -cp .:mysql-connector-java-5.1.47.jar JdbcTest
 ```
 ![img](https://doc.shiyanlou.com/document-uid441493labid8432timestamp1542596266804.png)  
 ## JDBC 基础
-1. JDBC结构
+1. JDBC结构  
 JDBC API 是 Java 开发工具包 (JDK) 的组成部份，由三部分组成：
 
-JDBC 驱动程序管理器
-JDBC 驱动程序测试工具包
-JDBC-ODBC 桥
-a. JDBC 　驱动程序管理器是　 JDBC 　体系结构的支柱，其主要作 用是把　 Java 　应用程序连接到正确的　 JDBC 　驱动程序上。
+JDBC 驱动程序管理器  
+JDBC 驱动程序测试工具包  
+JDBC-ODBC 桥  
+a. JDBC 驱动程序管理器是JDBC体系结构的支柱，其主要作用是把Java应用程序连接到正确的JDBC驱动程序上。
 
-b. JDBC 　驱动程序测试工具包为 JDBC 驱动程序的运行提供一定的可信度，只有通过 JDBC 驱动程序测试包的驱动程序才被认为是符合 JDBC 标准的。
+b. JDBC 驱动程序测试工具包为 JDBC 驱动程序的运行提供一定的可信度，只有通过 JDBC 驱动程序测试包的驱动程序才被认为是符合 JDBC 标准的。
 
-c. JDBC-ODBC 　桥使　 ODBC 　驱动程序可被用作　 JDBC 　驱动程序。其目标是为方便实现访问某些不常见的　 DBMS（数据库管理系统）, 它的实现为　 JDBC 　的快速发展提供了一条途径。
+c. JDBC-ODBC 桥使ODBC驱动程序可被用作JDBC驱动程序。其目标是为方便实现访问某些不常见的DBMS（数据库管理系统）, 它的实现为JDBC的快速发展提供了一条途径。
 
 JDBC 既支持数据库访问的两层模型，也支持三层模型。
 
@@ -267,7 +267,7 @@ JDBC 既支持数据库访问的两层模型，也支持三层模型。
 ![jdbc](https://doc.shiyanlou.com/document-uid79144labid1193timestamp1437355574896.png)  
 2、数据库访问的三层模型  
 ![jdbc](https://doc.shiyanlou.com/document-uid79144labid1193timestamp1437355655105.png)  
-2. JDBC驱动类型
+2. JDBC驱动类型  
 JDBC 驱动程序实现 JDBC API 中定义的接口，用于与数据库服务器进行交互。JDBC 驱动程序可以打开数据库连接，并通过发送 SQL 或数据库命令，然后在收到结果与 Java 进行交互。
 
 JDBC 驱动程序的实现因为各种各样的操作系统和 Java 运行在不同的硬件平台上而不同。JDBC 驱动类型可以归结为以下几类：
@@ -342,7 +342,8 @@ getConnection(String url, String user, String password)
 | Oracle  | oracle.jdbc.driver.OracleDriver | jdbc:oracle:thin:@hostname:port Number:databaseName |
 | DB2  | COM.ibm.db2.jdbc.net.DB2Driver | jdbc:db2:hostname:port Number/databaseName |
 | Sybase  | com.sybase.jdbc.SybDriver | jdbc:sybase:Tds:hostname: port Number/databaseName |  
-3.4 创建连接对象  
+
+3.4 创建连接对象    
 下面三种形式 DriverManager.getConnection() 方法来创建一个连接对象，以 Mysql 为例。getConnection() 最常用形式要求传递一个数据库 URL，用户名 username 和密码 password。
 
 1、使用数据库 URL 的用户名和密码
