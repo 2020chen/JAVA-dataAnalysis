@@ -72,6 +72,7 @@ spring.datasource.druid.max-evictable-idle-time-millis= 400000
 | stat | 监控统计 |
 | log4j	| 日志 |
 | wall | 防御sql注入 |  
+
 这里我们就配置了`stat`和`wall`,配置多个英文逗号分隔，配置如下：
 ```xml
 #监控统计的stat,以及防sql注入的wall
